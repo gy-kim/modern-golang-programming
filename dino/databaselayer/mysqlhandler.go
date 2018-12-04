@@ -6,6 +6,6 @@ func NewMySQLHandler() *MySQLHandler {
 	return nil
 }
 
-func (handler *MySQLHandler) GetAbaliableDynos() {
+func (handler *MySQLHandler) GetAvailableDynos() {
 
 }
