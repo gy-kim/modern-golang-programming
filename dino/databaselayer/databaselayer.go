@@ -33,6 +33,8 @@ func GetDatabaseHandler(dbtype uint8) (DinoDBHandler, error) {
 		return NewMySQLHandler(), nil
 	case MONGODB:
 		return NewMongodbHandler(), nil
+	case POSTGRESQL:
+		return NewPQHandler(), nil
 	case SQLITE:
 		return NewSQLiteHandler(), nil
 	}
