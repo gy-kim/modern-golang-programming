@@ -1,24 +1,21 @@
 package databaselayer
 
-type MySQLHandler struct{}
+import (
+	"database/sql"
 
-func NewMySQLHandler() *MySQLHandler {
-	return nil
+	_ "github.com/go-sql-driver/mysql"
+)
+
+type MySQLHandler struct {
+	*SQLHandler
 }
 
-func (handler *MySQLHandler) GetAvailableDynos() ([]Animal, error) {
-	return nil, nil
-}
+func NewMySQLHandler(connection string) (*MySQLHandler, error) {
+	db, err := sql.Open("mysql", connection)
 
-func (handler *MySQLHandler) GetDynoByNickname(string) (Animal, error) {
-	return Animal{}, nil
-}
-func (handler *MySQLHandler) GetDynosByType(string) (Animal, error) {
-	return Animal{}, nil
-}
-func (handler *MySQLHandler) AddAnimal(Animal) error {
-	return nil
-}
-func (handler *MySQLHandler) UpdateAnumal(Animal, string) error {
-	return nil
+	return &MySQLHandler{
+		SQLHandler: &SQLHandler{
+			DB: db,
+		},
+	}, err
 }
