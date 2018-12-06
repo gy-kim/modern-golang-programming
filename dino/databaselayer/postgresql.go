@@ -1,27 +1,20 @@
 package databaselayer
 
-type PQHandler struct{}
+import (
+	"database/sql"
 
-func NewPQHandler() *PQHandler {
-	return nil
+	_ "github.com/lib/pq"
+)
+
+type PQHandler struct {
+	*SQLHandler
 }
 
-func (handler *PQHandler) GetAvailableDynos() ([]Animal, error) {
-	return nil, nil
-}
-
-func (handler *PQHandler) GetDynoByNickname(string) (Animal, error) {
-	return Animal{}, nil
-}
-
-func (handler *PQHandler) GetDynosByType(string) (Animal, error) {
-	return Animal{}, nil
-}
-
-func (handler *PQHandler) AddAnimal(Animal) error {
-	return nil
-}
-
-func (handler *PQHandler) UpdateAnumal(Animal, string) error {
-	return nil
+func NewPQHandler(connection string) (*PQHandler, error) {
+	db, err := sql.Open("postgres", connection)
+	return &PQHandler{
+		SQLHandler: &SQLHandler{
+			DB: db,
+		},
+	}, err
 }
