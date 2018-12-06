@@ -12,9 +12,9 @@ const (
 type DinoDBHandler interface {
 	GetAvailableDynos() ([]Animal, error)
 	GetDynoByNickname(string) (Animal, error)
-	GetDynosByType(string) (Animal, error)
+	GetDynosByType(string) ([]Animal, error)
 	AddAnimal(Animal) error
-	UpdateAnumal(Animal, string) error
+	UpdateAnimal(Animal, string) error
 }
 
 type Animal struct {
@@ -27,16 +27,16 @@ type Animal struct {
 
 var DBTypeNotSupported = errors.New("The Database type provided is not supported...")
 
-func GetDatabaseHandler(dbtype uint8) (DinoDBHandler, error) {
+func GetDatabaseHandler(dbtype uint8, connection string) (DinoDBHandler, error) {
 	switch dbtype {
 	case MYSQL:
-		return NewMySQLHandler(), nil
+		return NewMySQLHandler(connection)
 	case MONGODB:
-		return NewMongodbHandler(), nil
+		return NewMongodbHandler(connection)
 	case POSTGRESQL:
-		return NewPQHandler(), nil
+		return NewPQHandler(connection)
 	case SQLITE:
-		return NewSQLiteHandler(), nil
+		return NewSQLiteHandler(connection)
 	}
 
 	return nil, DBTypeNotSupported
