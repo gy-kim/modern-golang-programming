@@ -1,24 +1,20 @@
 package databaselayer
 
-type SQLiteHandler struct{}
+import (
+	"database/sql"
 
-func NewSQLiteHandler() *SQLiteHandler {
-	return nil
+	_ "github.com/mattn/go-sqlite3"
+)
+
+type SQLiteHandler struct {
+	*SQLHandler
 }
 
-func (handler *SQLiteHandler) GetAvailableDynos() ([]Animal, error) {
-	return nil, nil
-}
-
-func (handler *SQLiteHandler) GetDynoByNickname(string) (Animal, error) {
-	return Animal{}, nil
-}
-func (handler *SQLiteHandler) GetDynosByType(string) (Animal, error) {
-	return Animal{}, nil
-}
-func (handler *SQLiteHandler) AddAnimal(Animal) error {
-	return nil
-}
-func (handler *SQLiteHandler) UpdateAnumal(Animal, string) error {
-	return nil
+func NewSQLiteHandler(connection string) (*SQLiteHandler, error) {
+	db, err := sql.Open("sqlite3", connection)
+	return &SQLiteHandler{
+		SQLHandler: &SQLHandler{
+			DB: db,
+		},
+	}, err
 }
