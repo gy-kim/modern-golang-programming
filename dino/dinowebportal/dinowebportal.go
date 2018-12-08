@@ -1,4 +1,4 @@
-package dynowebportal
+package dinowebportal
 
 import (
 	"fmt"

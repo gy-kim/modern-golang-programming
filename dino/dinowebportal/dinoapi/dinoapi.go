@@ -1,4 +1,4 @@
-package dynoapi
+package dinoapi
 
 import (
 	"net/http"
